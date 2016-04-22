@@ -1,0 +1,39 @@
+body {
+	text-align: center;
+	font-family: "Avant Garde", "Century Gothic", "Verdana";
+	background-color: #acf2e4;
+	color: #25542d
+}
+h1 {
+	margin: 20px;
+	margin-bottom: 0;
+	padding: 40px;
+	padding-bottom: 20px;
+	background-color: #ff8989;
+	letter-spacing: 0.5em;
+    word-spacing: 2em;
+}
+
+h3 {
+	margin: 20px;
+	margin-top: 0;
+	padding: 20px;
+	padding-top: 0;
+	background-color: #ff8989;
+}
+
+a {
+	color: #25542d;
+	text-decoration: "underline";
+}
+
+nav {
+	text-align: left;
+}
+
+img {
+	/*-moz-transform: rotate(90deg); 
+	-webkit-transform: rotate(90deg);*/
+	border-width: 20px;
+	border-color: #9cd696
+}
