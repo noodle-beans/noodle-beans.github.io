@@ -34,6 +34,7 @@ nav {
 img {
 	/*-moz-transform: rotate(90deg); 
 	-webkit-transform: rotate(90deg);*/
+	border-style: solid;
 	border-width: 20px;
-	border-color: #9cd696
+	border-color: #9cd696;
 }
