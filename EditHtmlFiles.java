@@ -117,13 +117,13 @@ public class EditHtmlFiles
 		
 		try
 		{
-			Scanner descriptionScanner = new Scanner( file ).useDelimiter( Pattern.compile( "\\s\\s.[0-9]{4}.\\s\\s\\s\\s" ) );
+			Scanner descriptionScanner = new Scanner( file ).useDelimiter( Pattern.compile( "[\n\r\f][\n\r\f]#[0-9]{4}#[\n\r\f][\n\r\f][\n\r\f][\n\r\f]" ) );
 			String currentDescription;
 			
 			for( int j = 0; j < maxNumber; j++ )
 			{
 				System.out.println( "wow:" + j );
-				currentDescription = descriptionScanner.next().replace( "\n", "<br>" ).replace( "\"", "\\\"" );
+				currentDescription = descriptionScanner.next().replaceAll( "[\n\r\f][\n\r\f]", "<br>" ).replace( "\"", "\\\"" );
 				System.out.println( "" + j + "\"" + currentDescription );
 				descriptions.add( currentDescription ); 
 			}

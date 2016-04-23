@@ -23,7 +23,7 @@ public class CreateBlankDescriptions
 			for( int j = 1; j < 10000; j++ )
 			{
 				out.println();
-				out.println( "^" + String.format( "%04d", j ) + "^" );
+				out.println( "#" + String.format( "%04d", j ) + "#" );
 				out.println();
 			}
 		}
