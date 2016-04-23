@@ -1,11 +1,13 @@
-
-what
+This is where the description for comic 1 goes
 ^0001^
 
-is
+Do not delete the things below each description
 ^0002^
 
-this
+You 
+Can
+Write 
+ANYTHING
 ^0003^
 
 
