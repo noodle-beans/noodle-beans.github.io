@@ -122,7 +122,7 @@ public class EditHtmlFiles
 						
 			for( int j = 0; j < maxNumber; j++ )
 			{
-				currentDescription = descriptionScanner.next().replaceAll( "[\n\r\f]{2}", "<br>" ).replace( "\"", "\\\"" );
+				currentDescription = descriptionScanner.next().replaceAll( "[\n\r\f]{2}", "<br>" ).replace( "\"", "\\\"" ).replace( "\u201C", "&#8220;" ).replace( "\u201D", "&#8221;" );
 				descriptions.add( currentDescription ); 
 			}
 			
