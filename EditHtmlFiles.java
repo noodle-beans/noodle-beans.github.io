@@ -7,7 +7,7 @@ public class EditHtmlFiles
 {
 	public static void main( String[] args )
 	{
-		int maxNumber = 0013;
+		int maxNumber = 13;
 		
 		// Reading ==================================================================================================================================
 		
@@ -117,14 +117,12 @@ public class EditHtmlFiles
 		
 		try
 		{
-			Scanner descriptionScanner = new Scanner( file ).useDelimiter( Pattern.compile( "[\n\r\f][\n\r\f]#[0-9]{4}#[\n\r\f][\n\r\f][\n\r\f][\n\r\f]" ) );
+			Scanner descriptionScanner = new Scanner( file ).useDelimiter( Pattern.compile( "[\n\r\f]{2}#[0-9]{4}#[\n\r\f]{4}" ) );
 			String currentDescription;
-			
+						
 			for( int j = 0; j < maxNumber; j++ )
 			{
-				System.out.println( "wow:" + j );
-				currentDescription = descriptionScanner.next().replaceAll( "[\n\r\f][\n\r\f]", "<br>" ).replace( "\"", "\\\"" );
-				System.out.println( "" + j + "\"" + currentDescription );
+				currentDescription = descriptionScanner.next().replaceAll( "[\n\r\f]{2}", "<br>" ).replace( "\"", "\\\"" );
 				descriptions.add( currentDescription ); 
 			}
 			

@@ -12,8 +12,7 @@ public class CreateBlankDescriptions
 		{
 			System.exit(0);
 		}
-		
-		
+				
 		PrintWriter out = null;
 		
 		try

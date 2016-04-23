@@ -1,31 +1,30 @@
-Wow
+Wow another one
 #0001#
 
-This is Great
+Many<br><br>Lines<br>At once
 #0002#
 
-Testing
-lots
-of
-lines
+Quoteth \"Shakespeare\" that?
 #0003#
 
-Also "quotes"
+And \n
 #0004#
 
-And \n backslashes <br> wow
+ ok
 #0005#
 
-
+Testing
 #0006#
 
-
+These aren't final
 #0007#
 
-
+Heyo
+wow
+well then
 #0008#
 
-
+What happens if # comes up?
 #0009#
 
 
