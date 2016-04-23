@@ -1,20 +1,29 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.regex.*;
 
 public class EditHtmlFiles
 {
 	public static void main( String[] args )
 	{
+		int maxNumber = 0013;
+		
 		// Reading ==================================================================================================================================
 		
 		ArrayList<String> lines = readLines( "editing/base.html" );
 		
 		ArrayList<String> titles = readLines( "editing/titles.txt" );
 		ArrayList<String> mouseOver = readLines( "editing/mouseOver.txt" );
+		ArrayList<String> descriptions = readDescriptions( "editing/descriptions.txt", maxNumber );
+		
+		//for( String s : descriptions )
+		//{
+		//	System.out.println(s);
+		//}
 		
 		// Writing ==================================================================================================================================
 		
-		int maxNumber = 0013;
 		String fileName;
 		
 		for( int j = 1; j <= maxNumber; j++ )
@@ -22,7 +31,7 @@ public class EditHtmlFiles
 			fileName = "noodles/" + String.format( "%04d", j ) + ".html";
 			
 			lines.set( 10, "		<h2>" + titles.get( j - 1 ) + "</h2>" );
-			lines.set( 11, "		<img src=\"../comics/comic" + String.format( "%04d", j ) + ".JPG\" width=\"400\" height=\"400\" alt=\"" + mouseOver.get( j - 1 ) + "\">" );
+			lines.set( 11, "		<img src=\"../comics/comic" + String.format( "%04d", j ) + ".JPG\" width=\"400\" height=\"400\" alt=\"" + mouseOver.get( j - 1 ) + "\" title = \" + mouseOver.get( j - 1 ) + \">" );
 			
 			if( j == 1 )
 			{
@@ -37,6 +46,8 @@ public class EditHtmlFiles
 				lines.set( 12, "		<p><a href=\"0001.html\">FIRST</a>|<a href=\"" + String.format( "%04d", j - 1 ) + ".html\">PREV</a>|<a href=\"" + String.format( "%04d", j + 1 ) + ".html\">NEXT</a>|<a href=\"../index.html\">LAST</a><p>" );
 			}
 			
+			lines.set( 13, "		<p>" + descriptions.get( j - 1 ) + "<p>" );
+			
 			writeLines( lines, fileName );
 		}
 		
@@ -44,9 +55,10 @@ public class EditHtmlFiles
 		lines.set( 4, "		<link rel=\"stylesheet\" href=\"style.css\">" );
 		lines.set( 9, "		<h3><a href=\"index.html\"><strong>Home</strong></a>|<a href=\"about.html\">About US</a></h3>" );
 		lines.set( 10, "		<h2>" + titles.get( maxNumber - 1 ) + "</h2>" );
-		lines.set( 11, "		<img src=\"comics/comic" + String.format( "%04d", maxNumber ) + ".JPG\" width=\"400\" height=\"400\" alt=\"" + mouseOver.get( maxNumber - 1 ) + "\">" );
+		lines.set( 11, "		<img src=\"comics/comic" + String.format( "%04d", maxNumber ) + ".JPG\" width=\"400\" height=\"400\" alt=\"" + mouseOver.get( maxNumber - 1 ) + "\" title = \" + mouseOver.get( j - 1 ) + \">" );
 		lines.set( 12, "		<p><a href=\"noodles/0001.html\">FIRST</a>|<a href=\"noodles/" + String.format( "%04d", maxNumber - 1 ) + ".html\">PREV</a>|<a href=\"index.html\">LAST</a><p>" );
-		
+		lines.set( 13, "		<p>" + descriptions.get( maxNumber - 1 ) + "<p>" );
+			
 		writeLines( lines, "index.html" );
 	}
 	
@@ -88,6 +100,49 @@ public class EditHtmlFiles
 		finally
 		{
 			return lines;
+		}
+	}
+	
+	public static ArrayList<String> readDescriptions( String fileName, int maxNumber )
+	{
+		File file = new File( fileName );
+		
+		if ( !file.exists() )
+		{
+			System.out.println( fileName + " does not exist" );
+			System.exit(1);
+		}
+		
+		ArrayList<String> descriptions = new ArrayList<String>();
+		
+		try
+		{
+			Scanner descriptionScanner = new Scanner( file ).useDelimiter( Pattern.compile( "\\s\\s.[0-9]{4}.\\s\\s\\s\\s" ) );
+			String currentDescription;
+			
+			for( int j = 0; j < maxNumber; j++ )
+			{
+				System.out.println( "wow:" + j );
+				currentDescription = descriptionScanner.next().replace( "\n", "<br>" ).replace( "\"", "\\\"" );
+				System.out.println( "" + j + "\"" + currentDescription );
+				descriptions.add( currentDescription ); 
+			}
+			
+			descriptionScanner.close();
+		}
+		catch( IndexOutOfBoundsException e )
+		{
+			System.out.println( fileName + " is incorrectly formatted" );
+			System.exit(4);
+		}
+		catch( IOException e )
+		{
+			System.out.println( "Scanner not created for " + fileName );
+			System.exit(5);
+		}
+		finally
+		{
+			return descriptions;
 		}
 	}
 	
