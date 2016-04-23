@@ -31,7 +31,7 @@ public class EditHtmlFiles
 			fileName = "noodles/" + String.format( "%04d", j ) + ".html";
 			
 			lines.set( 10, "		<h2>" + titles.get( j - 1 ) + "</h2>" );
-			lines.set( 11, "		<img src=\"../comics/comic" + String.format( "%04d", j ) + ".JPG\" width=\"400\" height=\"400\" alt=\"" + mouseOver.get( j - 1 ) + "\" title = \" + mouseOver.get( j - 1 ) + \">" );
+			lines.set( 11, "		<img src=\"../comics/comic" + String.format( "%04d", j ) + ".JPG\" width=\"400\" height=\"400\" alt=\"" + mouseOver.get( j - 1 ) + "\" title = \"" + mouseOver.get( j - 1 ) + "\">" );
 			
 			if( j == 1 )
 			{
@@ -55,7 +55,7 @@ public class EditHtmlFiles
 		lines.set( 4, "		<link rel=\"stylesheet\" href=\"style.css\">" );
 		lines.set( 9, "		<h3><a href=\"index.html\"><strong>Home</strong></a>|<a href=\"about.html\">About US</a></h3>" );
 		lines.set( 10, "		<h2>" + titles.get( maxNumber - 1 ) + "</h2>" );
-		lines.set( 11, "		<img src=\"comics/comic" + String.format( "%04d", maxNumber ) + ".JPG\" width=\"400\" height=\"400\" alt=\"" + mouseOver.get( maxNumber - 1 ) + "\" title = \" + mouseOver.get( j - 1 ) + \">" );
+		lines.set( 11, "		<img src=\"comics/comic" + String.format( "%04d", maxNumber ) + ".JPG\" width=\"400\" height=\"400\" alt=\"" + mouseOver.get( maxNumber - 1 ) + "\" title = \"" + mouseOver.get( maxNumber - 1 ) + "\">" );
 		lines.set( 12, "		<p><a href=\"noodles/0001.html\">FIRST</a>|<a href=\"noodles/" + String.format( "%04d", maxNumber - 1 ) + ".html\">PREV</a>|<a href=\"index.html\">LAST</a><p>" );
 		lines.set( 13, "		<p>" + descriptions.get( maxNumber - 1 ) + "<p>" );
 			
