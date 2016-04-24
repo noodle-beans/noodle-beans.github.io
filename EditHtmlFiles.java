@@ -123,7 +123,7 @@ public class EditHtmlFiles
 			for( int j = 0; j < maxNumber; j++ )
 			{
 				currentDescription = descriptionScanner.next().replaceAll( "[\n\r\f]{2}", "<br>" ).replace( "\"", "\\\"" ); //replaces newline char with html line break and replaces " with \" so quotes don't affect html syntax
-				currentDescription = currentDescription.replace( "\u201c", "&ldquo;" ).replace( "\u201d", "&rdquo;" ).replace( "\u02bc", "&#700;" ); //makes curvy special mac apostrophies and quotes work with html 
+				currentDescription = currentDescription.replace( "\u201c", "&ldquo;" ).replace( "\u201d", "&rdquo;" ).replace( "\u2019", "&rsquo;" ); //makes curvy special mac apostrophies and quotes work with html 
 				descriptions.add( currentDescription ); 
 			}
 			
