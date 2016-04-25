@@ -6,12 +6,21 @@
 	</head>
 	
 	<body>
-		<h1>NOODLEBEANS</h1>
-		<h3><a href="../index.html">Home</a>|<a href="../about.html">About Us</a></h3>
-		<h2>Error Page title</h2>
-		<img src="comics/comic0001.JPG" width="400" height="400" alt="wow! a comic! which one? who knows?????">
-		<p><a href="noodles/0001.html">FIRST</a>|<a href="noodles/0001.html">PREV</a>|<a href="index.html">NEXT</a>|<a href="index.html">LAST</a><p>
-		<p>Description<p>
+		<p id="header"><img src="../images/nbheaderimage.jpg" width="338" height="100" alt="noodlebean!" title="oops, forgot an s, guess it's too late now"</p>
+		<ul>
+			<li><a href="../index.html">Home</a></li><!-- comments are necessary because css 'display: inline-block' recognises the whitespace between list items????????
+			--><li><a href="http://www.mallikaramachandran.com/">About</a></li><!--
+			--><li><a href="http://mrnutmeg.storenvy.com/">Store</a></li>
+		</ul>
+		<p id="title">Error Page Title</p>
+		<img id="comic" src="../comics/comic0001.JPG" width="400" height="400" alt="wow! a comic! which one? who knows?????">
+		<ul id="comicBar">
+			<li><a href="0001.html">FIRST</a></li><!--
+			--><li><a href="javascript:;">PREV</a></li><!--
+			--><li><a href="javascript:;">NEXT</a></li><!--
+			--><li><a href="../index.html">LAST</a></li>
+		</ul>
+		<p id="description">Description<p>
 	</body>
 
 </html>

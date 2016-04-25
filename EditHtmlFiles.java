@@ -30,34 +30,45 @@ public class EditHtmlFiles
 		{
 			fileName = "noodles/" + String.format( "%04d", j ) + ".html";
 			
-			lines.set( 10, "		<h2>" + titles.get( j - 1 ) + "</h2>" );
-			lines.set( 11, "		<img src=\"../comics/comic" + String.format( "%04d", j ) + ".JPG\" width=\"400\" height=\"400\" alt=\"" + mouseOver.get( j - 1 ) + "\" title = \"" + mouseOver.get( j - 1 ) + "\">" );
+			lines.set( 14, "		<p id=\"title\">" + titles.get( j - 1 ) + "</p>" );
+			lines.set( 15, "		<img id=\"comic\" src=\"../comics/comic" + String.format( "%04d", j ) + ".JPG\" width=\"400\" height=\"400\" alt=\"" + mouseOver.get( j - 1 ) + "\" title = \"" + mouseOver.get( j - 1 ) + "\">" );
 			
 			if( j == 1 )
 			{
-				lines.set( 12, "		<p><a href=\"0002.html\">NEXT</a>|<a href=\"../index.html\">LAST</a><p>" );
+				lines.set( 17, " 			<li><a href=\"javascript:;\">FIRST</a></li><!--" );
+				lines.set( 18, " 			--><li><a href=\"javascript:;\">PREV</a></li><!--" );
+				lines.set( 19, " 			--><li><a href=\"0002.html\">NEXT</a></li><!--" );
 			}
 			else if( j == maxNumber )
 			{
-				lines.set( 12, "		<p><a href=\"0001.html\">FIRST</a>|<a href=\"" + String.format( "%04d", j - 1 ) + ".html\">PREV</a>|<a href=\"../index.html\">LAST</a><p>" );
+				lines.set( 18, " 			--><li><a href=\"" + String.format( "%04d", j - 1 ) + ".html\">PREV</a></li><!--" );
+				lines.set( 19, " 			--><li><a href=\"javascript:;\">NEXT</a></li><!--" );
+				lines.set( 20, " 			--><li><a href=\"javascript:;\">LAST</a></li>" );
 			}
 			else
 			{
-				lines.set( 12, "		<p><a href=\"0001.html\">FIRST</a>|<a href=\"" + String.format( "%04d", j - 1 ) + ".html\">PREV</a>|<a href=\"" + String.format( "%04d", j + 1 ) + ".html\">NEXT</a>|<a href=\"../index.html\">LAST</a><p>" );
+				lines.set( 17, " 			<li><a href=\"0001.html\">FIRST</a></li><!--" );
+				lines.set( 18, " 			--><li><a href=\"" + String.format( "%04d", j - 1 ) + ".html\">PREV</a></li><!--" );
+				lines.set( 19, " 			--><li><a href=\"" + String.format( "%04d", j + 1 ) + ".html\">NEXT</a></li><!--" );
+				lines.set( 20, " 			--><li><a href=\"../index.html\">LAST</a></li>" );
 			}
 			
-			lines.set( 13, "		<p>" + descriptions.get( j - 1 ) + "<p>" );
+			lines.set( 22, "		<p id=\"description\">" + descriptions.get( j - 1 ) + "<p>" );
 			
 			writeLines( lines, fileName );
 		}
 		
 		//index.html edits
 		lines.set( 4, "		<link rel=\"stylesheet\" href=\"style.css\">" );
-		lines.set( 9, "		<h3><a href=\"index.html\"><strong>Home</strong></a>|<a href=\"about.html\">About US</a></h3>" );
-		lines.set( 10, "		<h2>" + titles.get( maxNumber - 1 ) + "</h2>" );
-		lines.set( 11, "		<img src=\"comics/comic" + String.format( "%04d", maxNumber ) + ".JPG\" width=\"400\" height=\"400\" alt=\"" + mouseOver.get( maxNumber - 1 ) + "\" title = \"" + mouseOver.get( maxNumber - 1 ) + "\">" );
-		lines.set( 12, "		<p><a href=\"noodles/0001.html\">FIRST</a>|<a href=\"noodles/" + String.format( "%04d", maxNumber - 1 ) + ".html\">PREV</a>|<a href=\"index.html\">LAST</a><p>" );
-		lines.set( 13, "		<p>" + descriptions.get( maxNumber - 1 ) + "<p>" );
+		lines.set( 8, " 		<p id=\"header\"><img src=\"images/nbheaderimage.jpg\" width=\"338\" height=\"100\" alt=\"noodlebean!\" title=\"oops, forgot an s, guess it's too late now\"</p>" );
+		lines.set( 10, "			<li><a href=\"javascript:;\">Home</a></li><!--" );
+		lines.set( 14, "		<p id=\"title\">" + titles.get( maxNumber - 1 ) + "</p>" );
+		lines.set( 15, "		<img id=\"comic\" src=\"comics/comic" + String.format( "%04d", maxNumber ) + ".JPG\" width=\"400\" height=\"400\" alt=\"" + mouseOver.get( maxNumber - 1 ) + "\" title = \"" + mouseOver.get( maxNumber - 1 ) + "\">" );
+		lines.set( 17, " 			<li><a href=\"noodles/0001.html\">FIRST</a></li><!--" );
+		lines.set( 18, " 			--><li><a href=\"noodles/" + String.format( "%04d", maxNumber - 1 ) + ".html\">PREV</a></li><!--" );
+		lines.set( 19, " 			--><li><a href=\"javascript:;\">NEXT</a></li><!--" );
+		lines.set( 20, " 			--><li><a href=\"javascript:;\">LAST</a></li>" );
+		lines.set( 22, "		<p id=\"description\">" + descriptions.get( maxNumber - 1 ) + "<p>" );
 			
 		writeLines( lines, "index.html" );
 	}
