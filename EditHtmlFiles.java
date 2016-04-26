@@ -35,15 +35,15 @@ public class EditHtmlFiles
 			
 			if( j == 1 )
 			{
-				lines.set( 17, " 			<li><a href=\"javascript:;\">FIRST</a></li><!--" );
-				lines.set( 18, " 			--><li><a href=\"javascript:;\">PREV</a></li><!--" );
+				lines.set( 17, " 			<li><a class=\"inactive\" href=\"javascript:;\">FIRST</a></li><!--" );
+				lines.set( 18, " 			--><li><a class=\"inactive\" href=\"javascript:;\">PREV</a></li><!--" );
 				lines.set( 19, " 			--><li><a href=\"0002.html#comicView\">NEXT</a></li><!--" );
 			}
 			else if( j == maxNumber )
 			{
 				lines.set( 18, " 			--><li><a href=\"" + String.format( "%04d", j - 1 ) + ".html#comicView\">PREV</a></li><!--" );
-				lines.set( 19, " 			--><li><a href=\"javascript:;\">NEXT</a></li><!--" );
-				lines.set( 20, " 			--><li><a href=\"javascript:;\">LAST</a></li>" );
+				lines.set( 19, " 			--><li><a class=\"inactive\" href=\"javascript:;\">NEXT</a></li><!--" );
+				lines.set( 20, " 			--><li><a class=\"inactive\" href=\"javascript:;\">LAST</a></li>" );
 			}
 			else
 			{
@@ -66,8 +66,8 @@ public class EditHtmlFiles
 		lines.set( 15, "		<img id=\"comic\" src=\"comics/comic" + String.format( "%04d", maxNumber ) + ".JPG\" width=\"400\" height=\"400\" alt=\"" + mouseOver.get( maxNumber - 1 ) + "\" title = \"" + mouseOver.get( maxNumber - 1 ) + "\">" );
 		lines.set( 17, " 			<li><a href=\"noodles/0001.html#comicView\">FIRST</a></li><!--" );
 		lines.set( 18, " 			--><li><a href=\"noodles/" + String.format( "%04d", maxNumber - 1 ) + ".html#comicView\">PREV</a></li><!--" );
-		lines.set( 19, " 			--><li><a href=\"javascript:;\">NEXT</a></li><!--" );
-		lines.set( 20, " 			--><li><a href=\"javascript:;\">LAST</a></li>" );
+		lines.set( 19, " 			--><li><a class=\"inactive\" href=\"javascript:;\">NEXT</a></li><!--" );
+		lines.set( 20, " 			--><li><a class=\"inactive\" href=\"javascript:;\">LAST</a></li>" );
 		lines.set( 22, "		<p id=\"description\">" + descriptions.get( maxNumber - 1 ) + "<p>" );
 			
 		writeLines( lines, "index.html" );

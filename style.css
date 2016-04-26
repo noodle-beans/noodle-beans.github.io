@@ -1,3 +1,10 @@
+/* colors: 
+light blue: acf2e4
+pink: ff8989
+light green: 9cd696
+dark green: 25542d
+purple: a55d85 */
+
 body {
 	text-align: center;
 	font-family: "Avant Garde", "Century Gothic", "Verdana";
@@ -40,6 +47,11 @@ li a {
 
 li a:hover {
     background-color: #ee7878;
+}
+
+li a.inactive {
+	color: #ff8989;
+	background-color: #ff8989;
 }
 
 #title {
