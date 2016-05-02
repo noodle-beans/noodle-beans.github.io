@@ -7,7 +7,7 @@ public class EditHtmlFiles
 {
 	public static void main( String[] args )
 	{
-		int maxNumber = 13;
+		int maxNumber = 15;
 		
 		// Reading ==================================================================================================================================
 		
