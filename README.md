@@ -40,7 +40,7 @@ To add a new comic follow these steps:
 5. Put the new comic's title on the correct line (the line with the same number as the comic) in *titles.txt* and save. Titles must stay on one line.
 6. Put the comic's description in *descriptions.txt* above the #0001# thingy that has the same number as the comic. Descriptions can be multi-line.
 7. Put the new comic's mouse-over text on the correct line (the line with the same number as the comic) in *mouseOver.txt* and save. Mouse-over texts must stay on one line.
-8. Open *EditHtmlFiles.java*, go to line 10, and change the value of maxNumber to the new number of comics in the **comics** folder and save
+8. Open *EditHtmlFiles.java*, go to line 10, and change the value of maxNumber to the new number of comics in the **comics** folder and save.
 9. Compile and run *EditHtmlFiles.java*
 10. Push edits back to master branch, or, if you aren't me from the future, push to a new branch and contact me somehow because I've probably forgotten about this repository.
 
