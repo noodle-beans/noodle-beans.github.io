@@ -9,7 +9,8 @@ body {
 	text-align: center;
 	font-family: "Avant Garde", "Century Gothic", "Verdana";
 	background-color: #acf2e4;
-	color: #25542d
+	color: #25542d;
+	margin: 0;
 }
 
 #header {
