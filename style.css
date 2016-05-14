@@ -1,25 +1,30 @@
 /* colors: 
-light blue: acf2e4
-pink: ff8989
-light green: 9cd696
-dark green: 25542d
-purple: a55d85 */
+f9e698 */
+
 @font-face {
 	font-family: "KGHAPPYSOLID";
 	src: url( 'fonts/kg_happy/KGHAPPYSolid.ttf' );
 } 
 
+@font-face {
+	font-family: "KGHAPPY";
+	src: url( 'fonts/kg_happy/KGHAPPY.ttf' );
+} 
+
 body {
 	text-align: center;
 	font-family: "KGHAPPYSOLID", "Avant Garde", "Century Gothic", "Verdana";
-	background-color: #acf2e4;
-	color: #25542d;
+	background-color: #a1c1c1;
+	color: #007f83;
 	margin: 0;
 }
 
 #header {
-	background-color: #ff8989;
-	padding: 40px 40px 0px 40px;
+	font-family: "KGHAPPY", "Avant Garde", "Century Gothic", "Verdana";
+	font-size: 400%;
+	background-color: #f89085;
+	color: #ffffff;
+	padding: 40px 40px 40px 40px;
 	margin: 0;
 }
 
@@ -29,7 +34,7 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #ff8989;
+    background-color: #f9e698;
     width: 100%;
 }
 
@@ -44,19 +49,19 @@ li {
 
 li a {
     display: inline-block;
-    color: #22542d;
+    color: #f89085;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
 }
 
 li a:hover {
-    background-color: #ee7878;
+    background-color: #007f83;
 }
 
 li a.inactive {
-	color: #ff8989;
-	background-color: #ff8989;
+	color: #f9e698;
+	background-color: #f9e698;
 }
 
 #title {
@@ -67,7 +72,7 @@ li a.inactive {
 #comic {
 	border-style: solid;
 	border-width: 20px;
-	border-color: #9cd696;
+	border-color: #f9e698;
 }
 
 #description {
