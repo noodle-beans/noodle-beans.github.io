@@ -2,25 +2,35 @@
 f9e698 */
 
 @font-face {
-	font-family: "KGHAPPYSOLID";
-	src: url( 'fonts/kg_happy/KGHAPPYSolid.ttf' );
-} 
-
-@font-face {
 	font-family: "KGHAPPY";
 	src: url( 'fonts/kg_happy/KGHAPPY.ttf' );
 } 
 
+@font-face {
+	font-family: "KGHAPPYSolid";
+	src: url( 'fonts/kg_happy/KGHAPPYSolid.ttf' );
+} 
+
+@font-face {
+	font-family: "Multicolore";
+	src: url( 'fonts/multicolore/Multicolore.otf' );
+} 
+
+@font-face {
+	font-family: "DINN";
+	src: url( 'fonts/DINNeuzeitGroteskStd-Light.otf' );
+} 
+
 body {
 	text-align: center;
-	font-family: "KGHAPPYSOLID", "Avant Garde", "Century Gothic", "Verdana";
+	font-family: "Multicolore";
 	background-color: #a1c1c1;
 	color: #007f83;
 	margin: 0;
 }
 
 #header {
-	font-family: "KGHAPPY", "Avant Garde", "Century Gothic", "Verdana";
+	font-family: "KGHAPPY";
 	font-size: 400%;
 	background-color: #f89085;
 	color: #ffffff;
@@ -50,7 +60,8 @@ li {
 li a {
     display: inline-block;
     color: #f89085;
-    text-align: center;
+    font-family: "KGHAPPYSolid";
+	text-align: center;
     padding: 14px 16px;
     text-decoration: none;
 }
@@ -65,7 +76,7 @@ li a.inactive {
 }
 
 #title {
-	font-size: 150%;
+	font-size: 175%;
 	font-weight: bold;
 }
 
