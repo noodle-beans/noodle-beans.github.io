@@ -5,7 +5,6 @@ Mallika Ramachandran's webcomic
 Folders are bold and files are italic:
 - **comics**: 
   - Comic jpeg files named in the form *comic0001.jpg*
-  - *Stripper.exe*: a piece of third party software I use to remove metadata from the images. I highly recommend it!
 - **editing**:
   - *titles.txt*: contains comic titles; one title per line
   - *descriptions.txt*: contains comic descriptions, seperated by 'tags' that look like #0001#
@@ -14,8 +13,8 @@ Folders are bold and files are italic:
   - *CreateBlankDescriptions.java*: rewrites the descriptions.txt file with content removed, but tags still there 
   - *RefreshDescriptions.java*: rewrites descriptions.txt preserving content, and optionally editing tags (Note: it requires the document to be properly formatted with the previously used tags)
   (Note: neither of the above java programs are really necessary anymore; I only used them for creating the *descriptions.txt* file)
-- **images**:
-  - any non-comic images
+- **fonts**:
+  - all fonts used in the site
 - **noodles**:
  - Comic html files for each comic (so that each has a unique link) named in the form *0001.html*
 - *EditHtmlFiles.java*: VERY IMPORTANT. This program writes all the html pages (*index.html* and the pages in the **noodles** folder) based off of *base.html*, since all of the pages are essentially the same. Any differences between the files (for example; each html page displays a different comic) are managed by this file. This program is to be run after any edits/additions to:
@@ -35,7 +34,7 @@ To add a new comic follow these steps:
 
 1. Take image jpeg file and put it in **comics** folder
 2. Change its name to be in the form *comic0001.jpg*, but replace 0001 with the number that this comic will be (DO NOT skip numbers)
-3. Run stripper.exe (if you're using a mac, sucks to be you) and drag the new image into the panel that appears in order to remove the image's metadata. This deletes info like location and camera used, but also removes info about image orientation.
+3. Download and Run an image metadata removing program like [stripper.exe](http://www.steelbytes.com/?mid=30). Use it to remove metadata from image. Metadata could contain personal information, and this stops it from getting on the internet.
 4. Make sure the image is right-side up. If not, rotate and save.
 5. Put the new comic's title on the correct line (the line with the same number as the comic) in *titles.txt* and save. Titles must stay on one line.
 6. Put the comic's description in *descriptions.txt* above the #0001# thingy that has the same number as the comic. Descriptions can be multi-line.
