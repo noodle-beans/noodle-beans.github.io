@@ -4,10 +4,14 @@ pink: ff8989
 light green: 9cd696
 dark green: 25542d
 purple: a55d85 */
+@font-face {
+	font-family: "KGHAPPYSOLID";
+	src: url( 'fonts/kg_happy/KGHAPPYSOLID.ttf' );
+} 
 
 body {
 	text-align: center;
-	font-family: "Avant Garde", "Century Gothic", "Verdana";
+	font-family: "KGHAPPYSOLID";
 	background-color: #acf2e4;
 	color: #25542d;
 	margin: 0;
