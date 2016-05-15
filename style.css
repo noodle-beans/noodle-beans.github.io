@@ -16,11 +16,6 @@ f9e698 */
 	src: url( 'fonts/multicolore/Multicolore.otf' );
 } 
 
-@font-face {
-	font-family: "DINN";
-	src: url( 'fonts/DINNeuzeitGroteskStd-Light.otf' );
-} 
-
 body {
 	text-align: center;
 	font-family: "Multicolore";
