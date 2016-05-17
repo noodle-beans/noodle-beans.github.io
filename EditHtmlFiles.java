@@ -70,6 +70,16 @@ public class EditHtmlFiles
 		lines.set( 22, "		<p id=\"description\">" + descriptions.get( maxNumber - 1 ) + "<p>" );
 			
 		writeLines( lines, "index.html" );
+		
+		
+		// writing sitemap file
+		ArrayList<String> sitemapLines = new ArrayList<String>();
+		sitemapLines.add( "http://noodlebeans.tk/index.html" );
+		for( int j = 0; j < maxNumber; j++ )
+		{
+			sitemapLines.add( "http://noodlebeans.tk/noodles/" + String.format( "%04d", j ) );
+		}
+		writeLines( sitemapLines, "sitemap.txt" );
 	}
 	
 	public static ArrayList<String> readLines( String fileName )
