@@ -82,7 +82,7 @@ li a.inactive {
 }
 
 img {
-	height: 64vh;
+	height: 64vmin;
 	width: auto;
 }
 
