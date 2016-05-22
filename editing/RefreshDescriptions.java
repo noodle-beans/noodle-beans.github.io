@@ -26,7 +26,7 @@ public class RefreshDescriptions
 			
 			for( int j = 1; j < 10000; j++ )
 			{
-				out.println( ( j < maxNumber ) ? descriptions.get( j ) : "" );
+				out.println( ( j <= maxNumber ) ? descriptions.get( j - 1 ) : "" );
 				out.println( "#" + String.format( "%04d", j ) + "#" );
 				out.println();
 			}

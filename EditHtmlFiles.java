@@ -7,7 +7,7 @@ public class EditHtmlFiles
 {
 	public static void main( String[] args )
 	{
-		int maxNumber = 16;
+		int maxNumber = new File( "comics" ).list().length; //number of comics currently on website;
 		
 		// Reading ==================================================================================================================================
 		
@@ -16,11 +16,6 @@ public class EditHtmlFiles
 		ArrayList<String> titles = readLines( "editing/titles.txt" );
 		ArrayList<String> mouseOver = readLines( "editing/mouseOver.txt" );
 		ArrayList<String> descriptions = readDescriptions( "editing/descriptions.txt", maxNumber );
-		
-		//for( String s : descriptions )
-		//{
-		//	System.out.println(s);
-		//}
 		
 		// Writing ==================================================================================================================================
 		
