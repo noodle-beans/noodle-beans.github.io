@@ -54,7 +54,7 @@ public class EditHtmlFiles
 		}
 		
 		//index.html edits
-		lines.set( 17, "		<link rel=\"stylesheet\" href=\"style.css\">" );
+		lines.set( 4, "		<link rel=\"stylesheet\" href=\"style.css\">" );
 		lines.set( 24, "			<li><a href=\"javascript:;\">Home</a></li><!--" );
 		lines.set( 28, "		<p id=\"title\"><a name=\"comicView\">" + titles.get( maxNumber - 1 ) + "</a></p>" );
 		lines.set( 29, "		<img id=\"comic\" src=\"comics/comic" + String.format( "%04d", maxNumber ) + ".JPG\" width=\"400\" height=\"400\" alt=\"" + mouseOver.get( maxNumber - 1 ) + "\" title = \"" + mouseOver.get( maxNumber - 1 ) + "\">" );
