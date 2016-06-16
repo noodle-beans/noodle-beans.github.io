@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.*;
 
-public class EditHtmlFiles
+public class UpdateHtmlFiles
 {
 	public static void main( String[] args )
 	{
@@ -72,7 +72,6 @@ public class EditHtmlFiles
 		sitemapLines.add( "http://noodlebeans.tk/index.html" );
 		for( int j = 0; j < maxNumber; j++ )
 		{
-			sitemapLines.add( "http://noodlebeans.tk/noodles/" + String.format( "%04d", j ) );
 		}
 		writeLines( sitemapLines, "sitemap.txt" );
 	}
