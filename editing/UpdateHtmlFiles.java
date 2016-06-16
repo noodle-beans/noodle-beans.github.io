@@ -1,29 +1,63 @@
 import java.io.*;
+import java.nio.file.*;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.*;
 
 public class UpdateHtmlFiles
-{
+{	
+	private static String pathChange = "../"; //all paths are relative to noodle-beans.github.io directory. This variable allows me to change the location of this program without any major edits
+	
 	public static void main( String[] args )
 	{
-		int maxNumber = new File( "comics" ).list().length; //number of comics currently on website;
+		System.out.println( "What would you like to do?" );
+		System.out.println( "	<0> Exit with no action" );
+		System.out.println( "	<1> Update all html files (in place)" );
+		System.out.println( "	<2> Add new comics from cache" );
+		System.out.println( "" );
+		System.out.print( "Enter your choice: " );
 		
-		// Reading ==================================================================================================================================
+		Scanner input = new Scanner( System.in );
+		int actionChoice = input.nextInt();
 		
-		ArrayList<String> lines = readLines( "editing/base.html" );
+		switch( actionChoice )
+		{
+			case 1:
+			update();
+			System.out.println( "Html files updated!" );
+			break;
+			case 2:
+			addFromCache();
+			System.out.println( "Comics added to repository!" );
+			break;
+			default:
+			System.out.println( "Program terminated: No action taken. Have a nice day!" );
+			break;
+		}
+	}
+	
+	// update #######################################################################################################################################
+	
+	public static void update()
+	{
+		int maxNumber = new File( pathChange + "comics" ).list().length; //number of comics currently on website;
 		
-		ArrayList<String> titles = readLines( "editing/titles.txt" );
-		ArrayList<String> mouseOver = readLines( "editing/mouseOver.txt" );
-		ArrayList<String> descriptions = readDescriptions( "editing/descriptions.txt", maxNumber );
+		// Reading >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		
-		// Writing ==================================================================================================================================
+		ArrayList<String> lines = readLines( pathChange + "editing/base.html" );
+		
+		ArrayList<String> titles = readLines( pathChange + "editing/titles.txt" );
+		ArrayList<String> mouseOver = readLines( pathChange + "editing/mouseOver.txt" );
+		ArrayList<String> descriptions = readDescriptions( pathChange + "editing/descriptions.txt", maxNumber );
+		
+		// Writing >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		
 		String fileName;
 		
 		for( int j = 1; j <= maxNumber; j++ )
 		{
-			fileName = "noodles/" + String.format( "%04d", j ) + ".html";
+			fileName = pathChange + "noodles/" + String.format( "%04d", j ) + ".html";
 			
 			lines.set( 29, "		<p id=\"title\"><a name=\"comicView\">" + titles.get( j - 1 ) + "</a></p>" );
 			lines.set( 30, "		<img id=\"comic\" src=\"../comics/comic" + String.format( "%04d", j ) + ".JPG\" width=\"400\" height=\"400\" alt=\"" + mouseOver.get( j - 1 ) + "\" title = \"" + mouseOver.get( j - 1 ) + "\">" );
@@ -64,7 +98,7 @@ public class UpdateHtmlFiles
 		lines.set( 35, " 			--><li><a class=\"inactive\" href=\"javascript:;\">LAST</a></li>" );
 		lines.set( 37, "		<p id=\"description\">" + descriptions.get( maxNumber - 1 ) + "<p>" );
 			
-		writeLines( lines, "index.html" );
+		writeLines( lines, pathChange + "index.html" );
 		
 		
 		// writing sitemap file
@@ -74,8 +108,72 @@ public class UpdateHtmlFiles
 		{
 			sitemapLines.add( "http://noodlebeans.tk/noodles/" + String.format( "%04d", j + 1 ) );
 		}
-		writeLines( sitemapLines, "sitemap.txt" );
+		writeLines( sitemapLines, pathChange + "sitemap.txt" );
 	}
+	
+	// addFromCache #################################################################################################################################
+	
+	public static void addFromCache()
+	{
+		System.out.print( "Enter the number of comics to move from cache to repository: " );
+		Scanner input = new Scanner( System.in );
+		int maxNumber = input.nextInt(); //number of comics to move from cache to website
+				
+		for( int j = 1; j <= maxNumber; j++ )
+		{
+			File comicDestination = new File( pathChange + "comics/comic" + String.format( "%04d", j ) + ".JPG" );
+			
+			if( !comicDestination.exists() )
+			{
+				Path comicDestinationPath = Paths.get( pathChange + "comics/comic" + String.format( "%04d", j ) + ".JPG" );
+				Path comicLocationPath = Paths.get( pathChange + "../Comic Cache/comicsCache/comic" + String.format( "%04d", j ) + ".JPG" );
+				
+				try
+				{
+					Files.move( comicLocationPath, comicDestinationPath );
+				}
+				catch( IOException e )
+				{
+					System.out.println( "Comic not moved to repository." );
+				}
+			}
+		}
+		
+		ArrayList<String> cacheTitles = readLines( pathChange + "../Comic Cache/titlesCache.txt" );
+		ArrayList<String> cacheMouseOver = readLines( pathChange + "../Comic Cache/mouseOverCache.txt" );
+		ArrayList<String> cacheDescriptions = readDescriptions( pathChange + "../Comic Cache/descriptionsCache.txt", maxNumber );
+		
+		writeLines( cacheTitles.subList( 0, maxNumber ), pathChange + "editing/titles.txt" );
+		writeLines( cacheMouseOver.subList( 0, maxNumber ), pathChange + "editing/mouseOver.txt" );
+		
+		PrintWriter out = null;
+		
+		try
+		{
+			out = new PrintWriter( new BufferedWriter( new FileWriter( pathChange + "editing/descriptions.txt" ) ) );
+			
+			for( int j = 1; j < 10000; j++ )
+			{
+				out.println( ( j <= maxNumber ) ? cacheDescriptions.get( j - 1 ) : "" );
+				out.println( "#" + String.format( "%04d", j ) + "#" );
+				out.println();
+			}
+		}
+		catch ( IOException e )
+		{
+			System.out.println( "Writer not created for descriptions.txt" );
+		}
+		finally
+		{
+			out.close();
+		}
+		
+		update();
+	}
+	
+	// Helper functions #############################################################################################################################
+	
+	// readLines ------------------------------------------------------------------------------------------------------------------------------------
 	
 	public static ArrayList<String> readLines( String fileName )
 	{
@@ -84,7 +182,7 @@ public class UpdateHtmlFiles
 		if ( !file.exists() )
 		{
 			System.out.println( fileName + " does not exist" );
-			System.exit(1);
+			System.exit(2);
 		}
 		
 		BufferedReader reader = null;
@@ -105,18 +203,20 @@ public class UpdateHtmlFiles
 		catch( IndexOutOfBoundsException e )
 		{
 			System.out.println( fileName + " is incorrectly formatted" );
-			System.exit(4);
+			System.exit(3);
 		}
 		catch( IOException e )
 		{
 			System.out.println( "BufferedReader not created for " + fileName );
-			System.exit(5);
+			System.exit(4);
 		}
 		finally
 		{
 			return lines;
 		}
 	}
+	
+	// readDescriptions -----------------------------------------------------------------------------------------------------------------------------
 	
 	public static ArrayList<String> readDescriptions( String fileName, int maxNumber )
 	{
@@ -160,7 +260,9 @@ public class UpdateHtmlFiles
 		}
 	}
 	
-	public static void writeLines( ArrayList<String> lines, String fileName )
+	// writeLines -----------------------------------------------------------------------------------------------------------------------------------
+	
+	public static void writeLines( List<String> lines, String fileName )
 	{
 		PrintWriter out = null;
 		
