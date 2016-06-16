@@ -1,5 +1,4 @@
 http://noodlebeans.tk/index.html
-http://noodlebeans.tk/noodles/0000
 http://noodlebeans.tk/noodles/0001
 http://noodlebeans.tk/noodles/0002
 http://noodlebeans.tk/noodles/0003
@@ -18,3 +17,6 @@ http://noodlebeans.tk/noodles/0015
 http://noodlebeans.tk/noodles/0016
 http://noodlebeans.tk/noodles/0017
 http://noodlebeans.tk/noodles/0018
+http://noodlebeans.tk/noodles/0019
+http://noodlebeans.tk/noodles/0020
+http://noodlebeans.tk/noodles/0021
