@@ -72,6 +72,7 @@ public class UpdateHtmlFiles
 		sitemapLines.add( "http://noodlebeans.tk/index.html" );
 		for( int j = 0; j < maxNumber; j++ )
 		{
+			sitemapLines.add( "http://noodlebeans.tk/noodles/" + String.format( "%04d", j + 1 ) );
 		}
 		writeLines( sitemapLines, "sitemap.txt" );
 	}
