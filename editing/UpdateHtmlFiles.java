@@ -115,6 +115,7 @@ public class UpdateHtmlFiles
 	
 	public static void addFromCache()
 	{
+		System.out.println( "Number of comics currently in repository: " + new File( pathChange + "comics" ).list().length );
 		System.out.print( "Enter the number of comics to move from cache to repository: " );
 		Scanner input = new Scanner( System.in );
 		int maxNumber = input.nextInt(); //number of comics to move from cache to website
