@@ -65,32 +65,32 @@ public class UpdateHtmlFiles
 			fileName = pathChange + "noodles/" + String.format( "%04d", j ) + ".html";
 			comic = comicInfoList.get( mainFeed.get( j - 1 ).intValue() );
 			
-			lines.set( 29, "		<p id=\"title\"><a name=\"comicView\">" + comic.getTitle() + "</a></p>" );
-			lines.set( 30, "		<img id=\"comic\" src=\"" + "../" + comic.getComicPath() + "\" width=\"400\" height=\"400\" alt=\"" + comic.getMouseOver() + "\" title = \"" + comic.getMouseOver() + "\">" );
+			lines.set( 30, "		<p id=\"title\"><a name=\"comicView\">" + comic.getTitle() + "</a></p>" );
+			lines.set( 31, "		<img id=\"comic\" src=\"" + "../" + comic.getComicPath() + "\" width=\"400\" height=\"400\" alt=\"" + comic.getMouseOver() + "\" title = \"" + comic.getMouseOver() + "\">" );
 			
 			if( j == 1 ) //first comic in collection
 			{
-				lines.set( 32, " 			<li><a class=\"inactive\" href=\"javascript:;\">FIRST</a></li><!--" );
-				lines.set( 33, " 			--><li><a class=\"inactive\" href=\"javascript:;\">PREV</a></li><!--" );
-				lines.set( 34, " 			--><li><a href=\"0002.html#comicView\">NEXT</a></li><!--" );
-				lines.set( 35, " 			--><li><a href=\"../index.html#comicView\">LAST</a></li>" );
+				lines.set( 33, " 			<li><a class=\"inactive\" href=\"javascript:;\">FIRST</a></li><!--" );
+				lines.set( 34, " 			--><li><a class=\"inactive\" href=\"javascript:;\">PREV</a></li><!--" );
+				lines.set( 35, " 			--><li><a href=\"0002.html#comicView\">NEXT</a></li><!--" );
+				lines.set( 36, " 			--><li><a href=\"../index.html#comicView\">LAST</a></li>" );
 			}
 			else if( j == mainFeed.size() ) //last comic in collection
 			{
-				lines.set( 32, " 			<li><a href=\"0001.html#comicView\">FIRST</a></li><!--" );
-				lines.set( 33, " 			--><li><a href=\"" + String.format( "%04d", j - 1 ) + ".html#comicView\">PREV</a></li><!--" );
-				lines.set( 34, " 			--><li><a class=\"inactive\" href=\"javascript:;\">NEXT</a></li><!--" );
-				lines.set( 35, " 			--><li><a class=\"inactive\" href=\"javascript:;\">LAST</a></li>" );
+				lines.set( 33, " 			<li><a href=\"0001.html#comicView\">FIRST</a></li><!--" );
+				lines.set( 34, " 			--><li><a href=\"" + String.format( "%04d", j - 1 ) + ".html#comicView\">PREV</a></li><!--" );
+				lines.set( 35, " 			--><li><a class=\"inactive\" href=\"javascript:;\">NEXT</a></li><!--" );
+				lines.set( 36, " 			--><li><a class=\"inactive\" href=\"javascript:;\">LAST</a></li>" );
 			}
 			else
 			{
-				lines.set( 32, " 			<li><a href=\"0001.html#comicView\">FIRST</a></li><!--" );
-				lines.set( 33, " 			--><li><a href=\"" + String.format( "%04d", j - 1 ) + ".html#comicView\">PREV</a></li><!--" );
-				lines.set( 34, " 			--><li><a href=\"" + String.format( "%04d", j + 1 ) + ".html#comicView\">NEXT</a></li><!--" );
-				lines.set( 35, " 			--><li><a href=\"../index.html#comicView\">LAST</a></li>" );
+				lines.set( 33, " 			<li><a href=\"0001.html#comicView\">FIRST</a></li><!--" );
+				lines.set( 34, " 			--><li><a href=\"" + String.format( "%04d", j - 1 ) + ".html#comicView\">PREV</a></li><!--" );
+				lines.set( 35, " 			--><li><a href=\"" + String.format( "%04d", j + 1 ) + ".html#comicView\">NEXT</a></li><!--" );
+				lines.set( 36, " 			--><li><a href=\"../index.html#comicView\">LAST</a></li>" );
 			}
 			
-			lines.set( 37, "		<p id=\"description\">" + comic.getDescription() + "<p>" );
+			lines.set( 38, "		<p id=\"description\">" + comic.getDescription() + "<p>" );
 			
 			writeLines( lines, fileName );
 			sitemapLines.add( "http://noodlebeans.tk/noodles/" + String.format( "%04d", j + 1 ) );
@@ -101,13 +101,13 @@ public class UpdateHtmlFiles
 		
 		lines.set( 4, "		<link rel=\"stylesheet\" href=\"style.css\">" );
 		lines.set( 25, "			<li><a href=\"javascript:;\">Home</a></li><!--" );
-		lines.set( 29, "		<p id=\"title\"><a name=\"comicView\">" + comic.getTitle() + "</a></p>" );
-		lines.set( 30, "		<img id=\"comic\" src=\"" + comic.getComicPath() + "\" width=\"400\" height=\"400\" alt=\"" + comic.getMouseOver() + "\" title = \"" + comic.getMouseOver() + "\">" );
-		lines.set( 32, " 			<li><a href=\"noodles/0001.html#comicView\">FIRST</a></li><!--" );
-		lines.set( 33, " 			--><li><a href=\"noodles/" + String.format( "%04d", mainFeed.size() - 1 ) + ".html#comicView\">PREV</a></li><!--" );
-		lines.set( 34, " 			--><li><a class=\"inactive\" href=\"javascript:;\">NEXT</a></li><!--" );
-		lines.set( 35, " 			--><li><a class=\"inactive\" href=\"javascript:;\">LAST</a></li>" );
-		lines.set( 37, "		<p id=\"description\">" + comic.getDescription() + "<p>" );
+		lines.set( 30, "		<p id=\"title\"><a name=\"comicView\">" + comic.getTitle() + "</a></p>" );
+		lines.set( 31, "		<img id=\"comic\" src=\"" + comic.getComicPath() + "\" width=\"400\" height=\"400\" alt=\"" + comic.getMouseOver() + "\" title = \"" + comic.getMouseOver() + "\">" );
+		lines.set( 33, " 			<li><a href=\"noodles/0001.html#comicView\">FIRST</a></li><!--" );
+		lines.set( 34, " 			--><li><a href=\"noodles/" + String.format( "%04d", mainFeed.size() - 1 ) + ".html#comicView\">PREV</a></li><!--" );
+		lines.set( 35, " 			--><li><a class=\"inactive\" href=\"javascript:;\">NEXT</a></li><!--" );
+		lines.set( 36, " 			--><li><a class=\"inactive\" href=\"javascript:;\">LAST</a></li>" );
+		lines.set( 38, "		<p id=\"description\">" + comic.getDescription() + "<p>" );
 			
 		writeLines( lines, pathChange + "index.html" );
 		sitemapLines.add( "http://noodlebeans.tk/index.html" );
@@ -117,6 +117,7 @@ public class UpdateHtmlFiles
 		//reset lines
 		lines.set( 4, "		<link rel=\"stylesheet\" href=\"../seriousBabyStyle.css\">" );
 		lines.set( 25, "			<li><a href=\"../index.html#comicView\">Home</a></li><!--" );
+		lines.remove( 26 );
 		
 		
 		ArrayList<Integer> seriousBaby = (ArrayList<Integer>) collectionsToComicsMap.get( "Serious Baby" );
