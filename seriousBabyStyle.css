@@ -1,0 +1,88 @@
+@font-face {
+	font-family: "KGHAPPY";
+	src: url( 'fonts/kg_happy/KGHAPPY.ttf' );
+} 
+
+@font-face {
+	font-family: "KGHAPPYSolid";
+	src: url( 'fonts/kg_happy/KGHAPPYSolid.ttf' );
+} 
+
+@font-face {
+	font-family: "Multicolore";
+	src: url( 'fonts/multicolore/Multicolore.otf' );
+} 
+
+body {
+	text-align: center;
+	font-family: "Multicolore";
+	background-color: #a1c1c1;
+	color: #007f83;
+	margin: 0;
+}
+
+#header {
+	font-family: "KGHAPPY";
+	font-size: 10vmin;
+	background-color: #f89085;
+	color: #ffffff;
+	padding: 40px 40px 40px 40px;
+	margin: 0;
+}
+
+ul {
+    list-style-type: none;
+	text-align: center;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #f9e698;
+    width: 100%;
+}
+
+li {
+	display: inline;
+}
+
+#comicBar {
+	position: fixed;
+	bottom: 0;
+}
+
+li a {
+    display: inline-block;
+    color: #f89085;
+    font-family: "KGHAPPYSolid";
+	text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #007f83;
+}
+
+li a.inactive {
+	color: #f9e698;
+	background-color: #f9e698;
+}
+
+#title {
+	font-size: 175%;
+	font-weight: bold;
+}
+
+#comic {
+	border-style: solid;
+	border-width: 20px;
+	border-color: #f9e698;
+}
+
+img {
+	height: 64vmin;
+	width: auto;
+}
+
+#description {
+	margin-bottom: 100px;
+}

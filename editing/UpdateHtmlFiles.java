@@ -2,6 +2,7 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.regex.*;
 
@@ -41,35 +42,42 @@ public class UpdateHtmlFiles
 	
 	public static void update()
 	{
-		int maxNumber = new File( pathChange + "comics" ).list().length; //number of comics currently on website;
+		// writing sitemap file
+		ArrayList<String> sitemapLines = new ArrayList<String>();
 		
 		// Reading >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		
 		ArrayList<String> lines = readLines( pathChange + "editing/base.html" );
-		
-		ArrayList<String> titles = readLines( pathChange + "editing/titles.txt" );
-		ArrayList<String> mouseOver = readLines( pathChange + "editing/mouseOver.txt" );
-		ArrayList<String> descriptions = readDescriptions( pathChange + "editing/descriptions.txt", maxNumber );
+		ArrayList<ComicInfo> comicInfoList = (ArrayList<ComicInfo>) readObject( pathChange + "editing/comicInfoList.dat" );
+		HashMap<String,ArrayList<Integer>> collectionsToComicsMap = (HashMap<String,ArrayList<Integer>>) readObject( pathChange + "editing/collectionsToComicsMap.dat" );
 		
 		// Writing >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		
 		String fileName;
+		ComicInfo comic;
 		
-		for( int j = 1; j <= maxNumber; j++ )
+		// Main Feed ================================================================================================================================
+		
+		ArrayList<Integer> mainFeed = collectionsToComicsMap.get( "Main Feed" );
+		
+		for( int j = 1; j <= mainFeed.size(); j++ )
 		{
 			fileName = pathChange + "noodles/" + String.format( "%04d", j ) + ".html";
+			comic = comicInfoList.get( mainFeed.get( j - 1 ).intValue() );
 			
-			lines.set( 29, "		<p id=\"title\"><a name=\"comicView\">" + titles.get( j - 1 ) + "</a></p>" );
-			lines.set( 30, "		<img id=\"comic\" src=\"../comics/comic" + String.format( "%04d", j ) + ".JPG\" width=\"400\" height=\"400\" alt=\"" + mouseOver.get( j - 1 ) + "\" title = \"" + mouseOver.get( j - 1 ) + "\">" );
+			lines.set( 29, "		<p id=\"title\"><a name=\"comicView\">" + comic.getTitle() + "</a></p>" );
+			lines.set( 30, "		<img id=\"comic\" src=\"" + "../" + comic.getComicPath() + "\" width=\"400\" height=\"400\" alt=\"" + comic.getMouseOver() + "\" title = \"" + comic.getMouseOver() + "\">" );
 			
-			if( j == 1 )
+			if( j == 1 ) //first comic in collection
 			{
 				lines.set( 32, " 			<li><a class=\"inactive\" href=\"javascript:;\">FIRST</a></li><!--" );
 				lines.set( 33, " 			--><li><a class=\"inactive\" href=\"javascript:;\">PREV</a></li><!--" );
 				lines.set( 34, " 			--><li><a href=\"0002.html#comicView\">NEXT</a></li><!--" );
+				lines.set( 35, " 			--><li><a href=\"../index.html#comicView\">LAST</a></li>" );
 			}
-			else if( j == maxNumber )
+			else if( j == mainFeed.size() ) //last comic in collection
 			{
+				lines.set( 32, " 			<li><a href=\"0001.html#comicView\">FIRST</a></li><!--" );
 				lines.set( 33, " 			--><li><a href=\"" + String.format( "%04d", j - 1 ) + ".html#comicView\">PREV</a></li><!--" );
 				lines.set( 34, " 			--><li><a class=\"inactive\" href=\"javascript:;\">NEXT</a></li><!--" );
 				lines.set( 35, " 			--><li><a class=\"inactive\" href=\"javascript:;\">LAST</a></li>" );
@@ -82,32 +90,73 @@ public class UpdateHtmlFiles
 				lines.set( 35, " 			--><li><a href=\"../index.html#comicView\">LAST</a></li>" );
 			}
 			
-			lines.set( 37, "		<p id=\"description\">" + descriptions.get( j - 1 ) + "<p>" );
+			lines.set( 37, "		<p id=\"description\">" + comic.getDescription() + "<p>" );
 			
 			writeLines( lines, fileName );
+			sitemapLines.add( "http://noodlebeans.tk/noodles/" + String.format( "%04d", j + 1 ) );
 		}
 		
 		//index.html edits
+		comic = comicInfoList.get( mainFeed.get( mainFeed.size() - 1 ).intValue() ); //should be the value of comic already, but just to make sure last comic is focus
+		
 		lines.set( 4, "		<link rel=\"stylesheet\" href=\"style.css\">" );
 		lines.set( 25, "			<li><a href=\"javascript:;\">Home</a></li><!--" );
-		lines.set( 29, "		<p id=\"title\"><a name=\"comicView\">" + titles.get( maxNumber - 1 ) + "</a></p>" );
-		lines.set( 30, "		<img id=\"comic\" src=\"comics/comic" + String.format( "%04d", maxNumber ) + ".JPG\" width=\"400\" height=\"400\" alt=\"" + mouseOver.get( maxNumber - 1 ) + "\" title = \"" + mouseOver.get( maxNumber - 1 ) + "\">" );
+		lines.set( 29, "		<p id=\"title\"><a name=\"comicView\">" + comic.getTitle() + "</a></p>" );
+		lines.set( 30, "		<img id=\"comic\" src=\"" + comic.getComicPath() + "\" width=\"400\" height=\"400\" alt=\"" + comic.getMouseOver() + "\" title = \"" + comic.getMouseOver() + "\">" );
 		lines.set( 32, " 			<li><a href=\"noodles/0001.html#comicView\">FIRST</a></li><!--" );
-		lines.set( 33, " 			--><li><a href=\"noodles/" + String.format( "%04d", maxNumber - 1 ) + ".html#comicView\">PREV</a></li><!--" );
+		lines.set( 33, " 			--><li><a href=\"noodles/" + String.format( "%04d", mainFeed.size() - 1 ) + ".html#comicView\">PREV</a></li><!--" );
 		lines.set( 34, " 			--><li><a class=\"inactive\" href=\"javascript:;\">NEXT</a></li><!--" );
 		lines.set( 35, " 			--><li><a class=\"inactive\" href=\"javascript:;\">LAST</a></li>" );
-		lines.set( 37, "		<p id=\"description\">" + descriptions.get( maxNumber - 1 ) + "<p>" );
+		lines.set( 37, "		<p id=\"description\">" + comic.getDescription() + "<p>" );
 			
 		writeLines( lines, pathChange + "index.html" );
-		
-		
-		// writing sitemap file
-		ArrayList<String> sitemapLines = new ArrayList<String>();
 		sitemapLines.add( "http://noodlebeans.tk/index.html" );
-		for( int j = 0; j < maxNumber; j++ )
+		
+		// Serious Baby =============================================================================================================================
+		
+		//reset lines
+		lines.set( 4, "		<link rel=\"stylesheet\" href=\"../seriousBabyStyle.css\">" );
+		lines.set( 25, "			<li><a href=\"../index.html#comicView\">Home</a></li><!--" );
+		
+		
+		ArrayList<Integer> seriousBaby = (ArrayList<Integer>) collectionsToComicsMap.get( "Serious Baby" );
+		
+		for( int j = 1; j <= seriousBaby.size(); j++ )
 		{
-			sitemapLines.add( "http://noodlebeans.tk/noodles/" + String.format( "%04d", j + 1 ) );
+			fileName = pathChange + "seriousbaby/" + String.format( "%04d", j ) + ".html";
+			comic = comicInfoList.get( seriousBaby.get( j - 1 ).intValue() );
+			
+			lines.set( 29, "		<p id=\"title\"><a name=\"comicView\">" + comic.getTitle() + "</a></p>" );
+			lines.set( 30, "		<img id=\"comic\" src=\"" + "../" + comic.getComicPath() + "\" width=\"400\" height=\"400\" alt=\"" + comic.getMouseOver() + "\" title = \"" + comic.getMouseOver() + "\">" );
+			
+			if( j == 1 ) //first comic in collection
+			{
+				lines.set( 32, " 			<li><a class=\"inactive\" href=\"javascript:;\">FIRST</a></li><!--" );
+				lines.set( 33, " 			--><li><a class=\"inactive\" href=\"javascript:;\">PREV</a></li><!--" );
+				lines.set( 34, " 			--><li><a href=\"0002.html#comicView\">NEXT</a></li><!--" );
+				lines.set( 35, " 			--><li><a href=\"" + String.format( "%04d", seriousBaby.size() ) + ".html#comicView\">LAST</a></li>" );
+			}
+			else if( j == seriousBaby.size() ) //last comic in collection
+			{
+				lines.set( 32, " 			<li><a href=\"0001.html#comicView\">FIRST</a></li><!--" );
+				lines.set( 33, " 			--><li><a href=\"" + String.format( "%04d", j - 1 ) + ".html#comicView\">PREV</a></li><!--" );
+				lines.set( 34, " 			--><li><a class=\"inactive\" href=\"javascript:;\">NEXT</a></li><!--" );
+				lines.set( 35, " 			--><li><a class=\"inactive\" href=\"javascript:;\">LAST</a></li>" );
+			}
+			else
+			{
+				lines.set( 32, " 			<li><a href=\"0001.html#comicView\">FIRST</a></li><!--" );
+				lines.set( 33, " 			--><li><a href=\"" + String.format( "%04d", j - 1 ) + ".html#comicView\">PREV</a></li><!--" );
+				lines.set( 34, " 			--><li><a href=\"" + String.format( "%04d", j + 1 ) + ".html#comicView\">NEXT</a></li><!--" );
+				lines.set( 35, " 			--><li><a href=\"" + String.format( "%04d", seriousBaby.size() ) + ".html#comicView\">LAST</a></li>" );
+			}
+			
+			lines.set( 37, "		<p id=\"description\">" + comic.getDescription() + "<p>" );
+			
+			writeLines( lines, fileName );
+			sitemapLines.add( "http://noodlebeans.tk/seriousbaby/" + String.format( "%04d", j + 1 ) );
 		}
+		
 		writeLines( sitemapLines, pathChange + "sitemap.txt" );
 	}
 	
@@ -119,7 +168,23 @@ public class UpdateHtmlFiles
 		System.out.print( "Enter the number of comics you want to have in the repository: " );
 		Scanner input = new Scanner( System.in );
 		int maxNumber = input.nextInt(); //number of comics to move from cache to website
-				
+		
+		// read info from cache
+		ArrayList<String> cacheTitles = readLines( pathChange + "../Comic Cache/titlesCache.txt" );
+		ArrayList<String> cacheMouseOver = readLines( pathChange + "../Comic Cache/mouseOverCache.txt" );
+		ArrayList<String> cacheDescriptions = readDescriptions( pathChange + "../Comic Cache/descriptionsCache.txt", maxNumber );
+		ArrayList<String> cacheContainingCollections = readLines( pathChange + "../Comic Cache/containingCollectionsCache.txt" );
+		
+		ArrayList<ComicInfo> comicInfoList = new ArrayList<ComicInfo>();
+		ComicInfo comicInfo;  //class created in containing directory (not a java class)
+		
+		// Add new collections here
+		HashMap<String,ArrayList<Integer>> collectionsToComicsMap = new HashMap<String,ArrayList<Integer>>();
+		collectionsToComicsMap.put( "Main Feed", new ArrayList<Integer>() );
+		collectionsToComicsMap.put( "Serious Baby", new ArrayList<Integer>() );
+		String collectionsContainingComic;
+		
+		//copy over comic image files, get comic info for each comic, and sort comics into collections
 		for( int j = 1; j <= maxNumber; j++ )
 		{
 			File comicDestination = new File( pathChange + "comics/comic" + String.format( "%04d", j ) + ".JPG" );
@@ -131,48 +196,51 @@ public class UpdateHtmlFiles
 				
 				try
 				{
-					Files.move( comicLocationPath, comicDestinationPath );
+					Files.copy( comicLocationPath, comicDestinationPath );
 				}
 				catch( IOException e )
 				{
 					System.out.println( "Comic not moved to repository." );
 				}
 			}
-		}
-		
-		ArrayList<String> cacheTitles = readLines( pathChange + "../Comic Cache/titlesCache.txt" );
-		ArrayList<String> cacheMouseOver = readLines( pathChange + "../Comic Cache/mouseOverCache.txt" );
-		ArrayList<String> cacheDescriptions = readDescriptions( pathChange + "../Comic Cache/descriptionsCache.txt", maxNumber );
-		
-		writeLines( cacheTitles.subList( 0, maxNumber ), pathChange + "editing/titles.txt" );
-		writeLines( cacheMouseOver.subList( 0, maxNumber ), pathChange + "editing/mouseOver.txt" );
-		
-		PrintWriter out = null;
-		
-		try
-		{
-			out = new PrintWriter( new BufferedWriter( new FileWriter( pathChange + "editing/descriptions.txt" ) ) );
 			
-			for( int j = 1; j < 10000; j++ )
+			comicInfo = new ComicInfo();
+			
+			comicInfo.setTitle( cacheTitles.get( j - 1 ) );
+			comicInfo.setMouseOver( cacheMouseOver.get( j - 1 ) );
+			comicInfo.setDescription( cacheDescriptions.get( j - 1 ) );
+			comicInfo.setComicPath( "comics/comic" + String.format( "%04d", j ) + ".JPG" );
+			
+			comicInfoList.add( comicInfo );
+			
+			collectionsContainingComic = cacheContainingCollections.get( j - 1 );
+			
+			if( collectionsContainingComic.contains( "mf" ) ) //main feed
 			{
-				out.println( ( j <= maxNumber ) ? cacheDescriptions.get( j - 1 ) : "" );
-				out.println( "#" + String.format( "%04d", j ) + "#" );
-				out.println();
+				collectionsToComicsMap.get( "Main Feed" ).add( j - 1 );
+			}
+			
+			if( collectionsContainingComic.contains( "sb" ) ) // serious baby
+			{
+				collectionsToComicsMap.get( "Serious Baby" ).add( j - 1 );
 			}
 		}
-		catch ( IOException e )
-		{
-			System.out.println( "Writer not created for descriptions.txt" );
-		}
-		finally
-		{
-			out.close();
-		}
+		
+		//save comic info in comicInfoList.dat
+		writeObject( comicInfoList, pathChange + "editing/comicInfoList.dat" );
+		//save collection to comics map in collectionsToComicsMap.dat
+		writeObject( collectionsToComicsMap, pathChange + "editing/collectionsToComicsMap.dat" );
 		
 		update();
 	}
 	
-	// Helper functions #############################################################################################################################
+	
+	// ##############################################################################################################################################
+	// ############################################################## Helper functions ##############################################################
+	// ##############################################################################################################################################
+	
+	
+	// Reading >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	
 	// readLines ------------------------------------------------------------------------------------------------------------------------------------
 	
@@ -183,7 +251,7 @@ public class UpdateHtmlFiles
 		if ( !file.exists() )
 		{
 			System.out.println( fileName + " does not exist" );
-			System.exit(2);
+			System.exit(1);
 		}
 		
 		BufferedReader reader = null;
@@ -204,12 +272,12 @@ public class UpdateHtmlFiles
 		catch( IndexOutOfBoundsException e )
 		{
 			System.out.println( fileName + " is incorrectly formatted" );
-			System.exit(3);
+			System.exit(2);
 		}
 		catch( IOException e )
 		{
 			System.out.println( "BufferedReader not created for " + fileName );
-			System.exit(4);
+			System.exit(3);
 		}
 		finally
 		{
@@ -226,7 +294,7 @@ public class UpdateHtmlFiles
 		if ( !file.exists() )
 		{
 			System.out.println( fileName + " does not exist" );
-			System.exit(1);
+			System.exit(4);
 		}
 		
 		ArrayList<String> descriptions = new ArrayList<String>();
@@ -248,12 +316,12 @@ public class UpdateHtmlFiles
 		catch( IndexOutOfBoundsException e )
 		{
 			System.out.println( fileName + " is incorrectly formatted" );
-			System.exit(4);
+			System.exit(5);
 		}
 		catch( IOException e )
 		{
 			System.out.println( "Scanner not created for " + fileName );
-			System.exit(5);
+			System.exit(6);
 		}
 		finally
 		{
@@ -261,9 +329,47 @@ public class UpdateHtmlFiles
 		}
 	}
 	
+	// readObject --------------------------------------------------------------------------------------------------------------------------------
+	
+	public static Object readObject( String fileName )
+	{
+		File file = new File( fileName );
+		
+		if ( !file.exists() )
+		{
+			System.out.println( fileName + " does not exist" );
+			System.exit(7);
+		}
+		
+		Object obj = null;
+		
+		try
+		{
+			ObjectInputStream in = new ObjectInputStream( new BufferedInputStream( new FileInputStream( file ) ) );
+			
+			obj = in.readObject();
+			
+			in.close();
+		}
+		catch( ClassNotFoundException e )
+		{
+			System.out.println( "ClassNotFoundException: object not read." );
+		}
+		catch( IOException e )
+		{
+			System.out.println( "IOException: object not read." );
+		}
+		finally
+		{
+			return obj;
+		}
+	}
+	
+	// Writing >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	
 	// writeLines -----------------------------------------------------------------------------------------------------------------------------------
 	
-	public static void writeLines( List<String> lines, String fileName )
+	public static void writeLines( ArrayList<String> lines, String fileName )
 	{
 		PrintWriter out = null;
 		
@@ -279,10 +385,45 @@ public class UpdateHtmlFiles
 		catch ( IOException e )
 		{
 			System.out.println( "Writer not created for " + fileName );
+			System.exit(7);
 		}
 		finally
 		{
 			out.close();
+		}
+	}
+	
+	// writeObject -------------------------------------------------------------------------------------------------------------------------------
+	
+	public static void writeObject( Object obj, String fileName )
+	{
+		File file = new File( fileName );
+		
+		try
+		{
+			if ( !file.exists() )
+			{
+				file.createNewFile();
+			}
+		}
+		catch( Exception e )
+		{
+			System.out.println( "Exception: file not created." );
+			System.exit(8);
+		}
+				
+		try
+		{
+			ObjectOutputStream out = new ObjectOutputStream( new BufferedOutputStream( new FileOutputStream( file ) ) );
+			
+			out.writeObject( obj );
+			
+			out.close();
+		}
+		catch( IOException e )
+		{
+			System.out.println( "IOException: object not written." );
+			System.exit(9);
 		}
 	}
 }
