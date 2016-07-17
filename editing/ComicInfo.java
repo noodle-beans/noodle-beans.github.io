@@ -35,7 +35,7 @@ public class ComicInfo implements Serializable
 	
 	public String getTitle()
 	{
-		return title.replace( "\"", "\\\"" ); //cleans string for use in html
+		return title.replace( "\"", "&quot;" ); //cleans string for use in html
 	}
 	
 	public String getDescriptionRaw()
@@ -45,7 +45,7 @@ public class ComicInfo implements Serializable
 	
 	public String getDescription()
 	{
-		return description.replaceAll( "[\n\r\f]{2}", "<br>" ).replace( "\"", "\\\"" ).replace( "\u201c", "&ldquo;" ).replace( "\u201d", "&rdquo;" ).replace( "\u2019", "&rsquo;" ); //replaces newline char with html line break, replaces " with \" so quotes don't affect html syntax, makes curvy special apple ios apostrophies and quotes work with html
+		return description.replaceAll( "[\n\r\f]{2}", "<br>" ).replace( "\"", "&quot;" ).replace( "\u201c", "&ldquo;" ).replace( "\u201d", "&rdquo;" ).replace( "\u2019", "&rsquo;" ); //replaces newline char with html line break, replaces " with \" so quotes don't affect html syntax, makes curvy special apple ios apostrophies and quotes work with html
 	}
 	
 	public String getMouseOverRaw()
@@ -55,7 +55,7 @@ public class ComicInfo implements Serializable
 	
 	public String getMouseOver()
 	{
-		return mouseOver.replace( "\"", "\\\"" ); //cleans string for use in html
+		return mouseOver.replace( "\"", "&quot;" ); //cleans string for use in html
 	}
 	
 	public void setComicPath( String cp )
