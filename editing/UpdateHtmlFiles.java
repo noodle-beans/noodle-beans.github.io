@@ -280,10 +280,8 @@ public class UpdateHtmlFiles
 			System.out.println( "BufferedReader not created for " + fileName );
 			System.exit(3);
 		}
-		finally
-		{
-			return lines;
-		}
+		
+		return lines;
 	}
 	
 	// readDescriptions -----------------------------------------------------------------------------------------------------------------------------
@@ -303,13 +301,10 @@ public class UpdateHtmlFiles
 		try
 		{
 			Scanner descriptionScanner = new Scanner( file ).useDelimiter( Pattern.compile( "[\n\r\f]{2}#[0-9]{4}#[\n\r\f]{4}" ) );
-			String currentDescription;
 						
 			for( int j = 0; j < maxNumber; j++ )
 			{
-				currentDescription = descriptionScanner.next().replaceAll( "[\n\r\f]{2}", "<br>" ).replace( "\"", "\\\"" ); //replaces newline char with html line break and replaces " with \" so quotes don't affect html syntax
-				currentDescription = currentDescription.replace( "\u201c", "&ldquo;" ).replace( "\u201d", "&rdquo;" ).replace( "\u2019", "&rsquo;" ); //makes curvy special mac apostrophies and quotes work with html 
-				descriptions.add( currentDescription ); 
+				descriptions.add( descriptionScanner.next() ); 
 			}
 			
 			descriptionScanner.close();
@@ -324,10 +319,8 @@ public class UpdateHtmlFiles
 			System.out.println( "Scanner not created for " + fileName );
 			System.exit(6);
 		}
-		finally
-		{
-			return descriptions;
-		}
+		
+		return descriptions;
 	}
 	
 	// readObject --------------------------------------------------------------------------------------------------------------------------------
@@ -360,10 +353,8 @@ public class UpdateHtmlFiles
 		{
 			System.out.println( "IOException: object not read." );
 		}
-		finally
-		{
-			return obj;
-		}
+		
+		return obj;
 	}
 	
 	// Writing >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
